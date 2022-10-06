@@ -2,7 +2,7 @@
 DSA important questions in terms of interview and OA of product based companies.
 
 # Please feel free to contribute in this repository as it's included in Hacktoberfest 2022 (Hacktober-Accepted)
-
+# I will be creating separate folders for various companies (MAANG).
 
 
 
