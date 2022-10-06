@@ -1,7 +1,7 @@
 # DSA-Prep-HacktoberFest22
 DSA important questions in terms of interview and OA of product based companies.
 
-# Please do  contribute in this repository as it's include in Hacktoberfest 2022
+# Please feel free to contribute in this repository as it's included in Hacktoberfest 2022 (Hacktober-Accepted)
 
 
 
@@ -14,7 +14,7 @@ DSA important questions in terms of interview and OA of product based companies.
 [![Open Source Love](https://firstcontributions.github.io/open-source-badges/badges/open-source-v1/open-source.svg)](https://github.com/kishanrajput23/Hacktoberfest-2022)
 <img src="https://img.shields.io/badge/HacktoberFest-2022-blueviolet" alt="Hacktober Badge"/>
 <img src="https://img.shields.io/static/v1?label=%E2%AD%90&message=If%20Useful&style=style=flat&color=BC4E99" alt="Star Badge"/>
-<a href="https://github.com/kishanrajput23" ><img src="https://img.shields.io/badge/Contributions-welcome-green.svg?style=flat&logo=github" alt="Contributions" /></a>
+<a href="#" ><img src="https://img.shields.io/badge/Contributions-welcome-green.svg?style=flat&logo=github" alt="Contributions" /></a>
 
 </div>
 
