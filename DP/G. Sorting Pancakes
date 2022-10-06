@@ -1,0 +1,159 @@
+Problem : 
+
+Nastya baked m pancakes and spread them on n dishes. The dishes are in a row and numbered from left to right. She put ai pancakes on the dish with the index i.
+
+Seeing the dishes, Vlad decided to bring order to the stacks and move some pancakes. In one move, he can shift one pancake from any dish to the closest one, that is, select the dish i (ai>0) and do one of the following:
+
+if i>1, put the pancake on a dish with the previous index, after this move ai=ai−1 and ai−1=ai−1+1;
+if i<n, put the pancake on a dish with the following index, after this move ai=ai−1 and ai+1=ai+1+1.
+Vlad wants to make the array anon-increasing, after moving as few pancakes as possible. Help him find the minimum number of moves needed for this.
+
+The array a=[a1,a2,…,an] is called non-increasing if ai≥ai+1 for all i from 1 to n−1.
+
+Input
+The first line of the input contains two numbers n and m (1≤n,m≤250) — the number of dishes and the number of pancakes, respectively.
+
+The second line contains n numbers ai (0≤ai≤m), the sum of all ai is equal to m.
+
+Output
+Print a single number: the minimum number of moves required to make the array a non-increasing.
+
+
+Solution in Java: 
+
+
+
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+
+public class Solution {
+
+    static int INF = (int) 1e9;
+
+    public static void main(String[] args) throws java.lang.Exception {
+        out = new PrintWriter(new BufferedOutputStream(System.out));
+        sc = new FastReader();
+
+        int test = 1;
+        for (int t = 1; t <= test; t++) {
+            solve();
+        }
+        out.close();
+    }
+
+    private static void solve() {
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+
+        int[] pancakes = new int[n]; // pancakes in dish i
+        for (int i = 0; i < n; i++) {
+            pancakes[i] = sc.nextInt();
+        }
+
+        int[] prefix = new int[n + 1];
+        for (int i = 0; i < n; i++) {
+            prefix[i + 1] = prefix[i] + pancakes[i];
+        }
+
+        // dp[i][j][k] is the minimum number of operations needed to make prefix i sorted in non-increasing order,
+        // and ith dish have >= j pancakes (since from remaining dishes we can get some more pancakes for dish i) on it,
+        // and total sum of pancakes in prefix i is equal to k.
+
+        int[][][] dp = new int[n + 1][m + 1][m + 1];
+
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j <= m; j++) {
+                Arrays.fill(dp[i][j], INF);
+            }
+        }
+
+        for (int j = 0; j <= m; j++) {
+            dp[0][j][0] = 0;
+        }
+
+        for (int i = 1; i <= n; i++) { // for each prefix to sort in decreasing order
+            for (int j = 0; j <= m; j++) { // for each total pancakes ith dish have
+                for (int k = j; k <= m; k++) { // for each total pancakes upto dish i
+                    // operations needed to reach such a state
+                    int operationsNeeded = Math.abs(prefix[i] - k); // since in one operation we can increase or decrease prefix sum by 1.
+
+                    // previous dish will have at least j pancakes on it, since we have prefix sorted in decreasing order.
+                    dp[i][j][k] = Math.min(dp[i][j][k], operationsNeeded + dp[i - 1][j][k - j]);
+                }
+            }
+
+            // since ith dish have >= j pancakes, we take best.
+            for (int k = 0; k <= m; k++) {
+                for (int j = m - 1; j >= 0; j--) {
+                    dp[i][j][k] = Math.min(dp[i][j][k], dp[i][j + 1][k]);
+                }
+            }
+        }
+
+        out.println(dp[n][0][m]);
+    }
+
+
+    public static FastReader sc;
+    public static PrintWriter out;
+    static class FastReader
+    {
+        BufferedReader br;
+        StringTokenizer str;
+
+        public FastReader()
+        {
+            br = new BufferedReader(new
+                    InputStreamReader(System.in));
+        }
+
+        String next()
+        {
+            while (str == null || !str.hasMoreElements())
+            {
+                try
+                {
+                    str = new StringTokenizer(br.readLine());
+                }
+                catch (IOException  lastMonthOfVacation)
+                {
+                    lastMonthOfVacation.printStackTrace();
+                }
+            }
+            return str.nextToken();
+        }
+
+        int nextInt()
+        {
+            return Integer.parseInt(next());
+        }
+
+        long nextLong()
+        {
+            return Long.parseLong(next());
+        }
+
+        double nextDouble()
+        {
+            return Double.parseDouble(next());
+        }
+
+        String nextLine()
+        {
+            String str = "";
+            try
+            {
+                str = br.readLine();
+            }
+            catch (IOException lastMonthOfVacation)
+            {
+                lastMonthOfVacation.printStackTrace();
+            }
+            return str;
+        }
+    }
+
+}
