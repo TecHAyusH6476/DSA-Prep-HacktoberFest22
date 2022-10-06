@@ -1,8 +1,11 @@
 # DSA-Prep-HacktoberFest22
-DSA important questions in terms of interview and OA of product based companies.
+# DSA important questions in terms of interview and OA of product based companies.
 
 # Please feel free to contribute in this repository as it's included in Hacktoberfest 2022 (Hacktober-Accepted)
 # I will be creating separate folders for various companies (MAANG).
+# Please make sure you star the repo 🔥🔥🔥
+Thanks for contributing !!
+Happy Hacktober 🔥🔥🔥
 
 
 
@@ -110,8 +113,8 @@ upstream  https://github.com/Remote_Username/Hacktoberfest-2022.git (push)
 $ git remote -V
 origin    https://github.com/Your_Username/Hacktoberfest-2022.git (fetch)
 origin    https://github.com/Your_Username/Hacktoberfest-2022.git (push)
-upstream  https://github.com/kishanrajput23/Hacktoberfest-2022.git (fetch)
-upstream  https://github.com/kishanrajput23/Hacktoberfest-2022.git (push)
+upstream  https://github.com/TecHAyusH6476/Hacktoberfest-2022.git (fetch)
+upstream  https://github.com/TecHAyusH6476/Hacktoberfest-2022.git (push)
 ```
 
 ### 4. Sync it :recycle:
@@ -135,7 +138,7 @@ $ git push origin main
 
 ### 5. Ready Steady Go... :turtle: :rabbit2:
 
-Once you have completed these steps, you are ready to start contributing by checking our `Good First Issue` Issues and creating [pull requests](https://github.com/kishanrajput23/Hacktoberfest-2022/pulls).
+Once you have completed these steps, you are ready to start contributing by checking our `Good First Issue` Issues and creating [pull requests](https://github.com/TecHAyusH6476/Hacktoberfest-2022/pulls).
 
 ### 6. Create a new branch :bangbang:
 
@@ -181,7 +184,7 @@ Then add a title and description to your pull request that explains your preciou
 
 ## Awesome contributors :star_struck:
 <a href="https://github.com/TecHAyusH6476">
-  <img src="https://contributors-img.web.app/image?repo=kishanrajput23/Hacktoberfest-2022" />
+  <img src="https://contributors-img.web.app/image?repo=TecHAyusH6476/Hacktoberfest-2022" />
 </a>
 
 Made with [contributors-img](https://contributors-img.web.app).
