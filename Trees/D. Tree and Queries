@@ -1,0 +1,244 @@
+Problem : 
+
+You have a rooted tree consisting of n vertices. Each vertex of the tree has some color. We will assume that the tree vertices are numbered by integers from 1 to n. Then we represent the color of vertex v as cv. The tree root is a vertex with number 1.
+
+In this problem you need to answer to m queries. Each query is described by two integers vj, kj. The answer to query vj, kj is the number of such colors of vertices x, that the subtree of vertex vj contains at least kj vertices of color x.
+
+You can find the definition of a rooted tree by the following link: http://en.wikipedia.org/wiki/Tree_(graph_theory).
+
+Input
+The first line contains two integers n and m (2 ≤ n ≤ 105; 1 ≤ m ≤ 105). The next line contains a sequence of integers c1, c2, ..., cn (1 ≤ ci ≤ 105). The next n - 1 lines contain the edges of the tree. The i-th line contains the numbers ai, bi (1 ≤ ai, bi ≤ n; ai ≠ bi) — the vertices connected by an edge of the tree.
+
+Next m lines contain the queries. The j-th line contains two integers vj, kj (1 ≤ vj ≤ n; 1 ≤ kj ≤ 105).
+
+Output
+Print m integers — the answers to the queries in the order the queries appear in the input.
+
+
+Solution in Java :
+
+
+
+import javax.management.Query;
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+
+public class Solution {
+
+    static class Query implements Comparable<Query> {
+        int start;
+        int end;
+        int k;
+        int index;
+
+        Query(int start, int end, int k, int index) {
+            this.start = start;
+            this.end = end;
+            this.k = k;
+            this.index = index;
+        }
+
+        public int compareTo(Query q) {
+            int blockIndex1 = start / BLOCK_SIZE;
+            int blockIndex2 = q.start / BLOCK_SIZE;
+
+            if (blockIndex1 != blockIndex2) {
+                return Integer.compare(blockIndex1, blockIndex2);
+            }
+
+            return Integer.compare(end, q.end);
+        }
+
+    }
+
+    static int MAX = 100005, BLOCK_SIZE = 350;
+
+    static List<Integer>[] graph = new List[MAX];
+    static int[] color = new int[MAX];
+
+    static int[] inTime = new int[MAX];
+    static int[] outTime = new int[MAX];
+    static int[] nodeAt = new int[MAX];
+
+    static int[] freq = new int[MAX];
+    static int[] count = new int[MAX];
+    static int[] res = new int[MAX];
+
+    static int currTime = 0;
+
+    public static void main(String[] args) throws java.lang.Exception {
+        out = new PrintWriter(new BufferedOutputStream(System.out));
+        sc = new FastReader();
+
+        int test = 1;
+        for (int t = 1; t <= test; t++) {
+            solve();
+        }
+        out.close();
+    }
+
+    private static void solve() {
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+
+        for (int i = 0; i < n; i++) {
+            color[i] = sc.nextInt();
+            graph[i] = new ArrayList<>();
+        }
+
+        for (int i = 0; i < n - 1; i++) {
+            int u = sc.nextInt() - 1;
+            int v = sc.nextInt() - 1;
+            graph[u].add(v);
+            graph[v].add(u);
+        }
+
+        // flattening the tree
+        dfs(0, -1);
+
+        Query[] queries = new Query[m];
+        for (int i = 0; i < m; i++) {
+            int v = sc.nextInt() - 1;
+            int k = sc.nextInt();
+            queries[i] = new Query(inTime[v], outTime[v], k, i);
+        }
+
+        /*
+
+        Now the problem boils down to, given a range [l, r] find total colors in this range which appears at least k times.
+
+        Using mo's algorithm or square-root decomposition on queries.
+
+        Mo's algorithm is used for answering range queries in sqrt(n) time per query.
+
+        In mo' algorithm we divide the range into smaller blocks of size (sqrt(n)), and keeps the answer for previous query and then only extend or reduce the range accordingly to answer next query.
+
+        */
+
+        Arrays.sort(queries);
+
+        int left = -1, right = -1;
+        for (int i = 0; i < m; i++) {
+            int start = queries[i].start;
+            int end = queries[i].end;
+
+            while (right < end) {
+                increase(++right);
+            }
+
+            while (left > start) {
+                increase(--left);
+            }
+
+            while (left < start) {
+                decrease(left++);
+            }
+
+            while (right > end) {
+                decrease(right--);
+            }
+
+            res[queries[i].index] = freq[queries[i].k];
+        }
+
+        for (int i = 0; i < m; i++) {
+            out.println(res[i]);
+        }
+    }
+
+    private static void decrease(int index) {
+        if (index < 0 || index >= MAX) {
+            return;
+        }
+        int x = color[nodeAt[index]];
+        freq[count[x]]--;
+        count[x]--;
+    }
+
+    private static void increase(int index) {
+        if (index < 0 || index >= MAX) {
+            return;
+        }
+        int x = color[nodeAt[index]];
+        count[x]++;
+        freq[count[x]]++;
+    }
+
+    private static void dfs(int currNode, int parent) {
+        inTime[currNode] = currTime;
+        nodeAt[currTime] = currNode;
+        currTime++;
+
+        for (int adjacentNode : graph[currNode]) {
+            if (adjacentNode == parent) {
+                continue;
+            }
+            dfs(adjacentNode, currNode);
+        }
+
+        outTime[currNode] = currTime - 1;
+    }
+
+
+    public static FastReader sc;
+    public static PrintWriter out;
+    static class FastReader
+    {
+        BufferedReader br;
+        StringTokenizer str;
+
+        public FastReader()
+        {
+            br = new BufferedReader(new
+                    InputStreamReader(System.in));
+        }
+
+        String next()
+        {
+            while (str == null || !str.hasMoreElements())
+            {
+                try
+                {
+                    str = new StringTokenizer(br.readLine());
+                }
+                catch (IOException  lastMonthOfVacation)
+                {
+                    lastMonthOfVacation.printStackTrace();
+                }
+            }
+            return str.nextToken();
+        }
+
+        int nextInt()
+        {
+            return Integer.parseInt(next());
+        }
+
+        long nextLong()
+        {
+            return Long.parseLong(next());
+        }
+
+        double nextDouble()
+        {
+            return Double.parseDouble(next());
+        }
+
+        String nextLine()
+        {
+            String str = "";
+            try
+            {
+                str = br.readLine();
+            }
+            catch (IOException lastMonthOfVacation)
+            {
+                lastMonthOfVacation.printStackTrace();
+            }
+            return str;
+        }
+    }
+
+}
