@@ -1,12 +1,11 @@
 # DSA-Prep-HacktoberFest22
-# DSA important questions in terms of interview and OA of product based companies.
+DSA important questions in terms of interview and OA of product based companies.
 
-# Please feel free to contribute in this repository as it's included in Hacktoberfest 2022 (Hacktober-Accepted)
-# I will be creating separate folders for various companies (MAANG).
+Please feel free to contribute in this repository as it's included in Hacktoberfest 2022 (Hacktober-Accepted)
+I will be creating separate folders for various companies (MAANG).
 # Please make sure you star the repo 🔥🔥🔥
 Thanks for contributing !!
 Happy Hacktober 🔥🔥🔥
-
 
 
 #  Hacktoberfest 2022 Is Awesome🔥
