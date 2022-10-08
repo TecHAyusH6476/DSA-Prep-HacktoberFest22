@@ -1,0 +1,62 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n=prices.size();
+        if(n<2){
+            return 0;
+        }
+        else if(n==2){
+            return max(0,prices[1]-prices[0]);
+        }
+        int s,smax;
+        int p2[n+1];
+        p2[n]=0;
+        p2[n-1]=0;
+        p2[n-2]=prices[n-1]-prices[n-2];
+        if(p2[n-2]>=0){
+            smax=prices[n-1];
+        }
+        else{
+            p2[n-2]=0;
+            smax=prices[n-2];
+        }
+        //possible post-profit
+        for(int i=n-3;i>0;i--){  
+            s=smax-prices[i];
+            if(s>p2[i+1]){
+                p2[i]=s;
+            }
+            else{
+                p2[i]=p2[i+1];
+            }
+            
+            if(smax<prices[i]){
+                smax=prices[i];
+            }
+            
+        }
+        int profit=0;
+        if(smax-prices[0]>p2[1]){
+            profit=smax-prices[0];
+        }
+        else{
+            profit=p2[1];
+        }
+        //total profit completing 1st transection at i'th index
+        
+        int pmin=prices[0];
+        for(int i=1;i<n;i++){
+            if(profit<prices[i]-pmin +p2[i+1]){
+                profit=prices[i]-pmin +p2[i+1];
+            }
+            
+            //reinitializing buying value
+            if(prices[i]<pmin){
+                pmin=prices[i];
+            }        
+        }
+        return profit;
+        
+        
+    }
+};
