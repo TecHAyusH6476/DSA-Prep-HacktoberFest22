@@ -1,0 +1,19 @@
+class Solution {
+public:
+    string removeDuplicates(string s) {
+      
+        string yashi="";
+        yashi.push_back(s[0]);
+        
+        for(int i=1;i<s.size();i++)
+        {
+            if((yashi.size()!=0 ) and  yashi[yashi.size()-1]==s[i])
+                yashi.pop_back();
+            else
+            {
+                yashi.push_back(s[i]);
+            }
+        }
+        return yashi;
+    }
+};
