@@ -40,5 +40,3 @@ public class Recursive_Bubble_Sort {
         System.out.println(Arrays.toString(arr));
     }
 }
-
-// Code improved by Susobhan Akhuli
