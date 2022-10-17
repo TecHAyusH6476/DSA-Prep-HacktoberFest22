@@ -1,0 +1,18 @@
+#include<iostream>
+#include<unordered_map>
+using namespace std;
+int main()
+{
+    unordered_map<string,int>umap;
+    umap["One"]=1;
+    umap["Two"]=2;
+    umap["Three"]=3;
+    umap["Four"]=4;
+    umap["Five"]=5;
+    umap["Six"]=6;
+    // for traversal
+    for(auto x:umap)
+    {
+        cout<<x.first<<" "<<x.second<<" "<<endl;
+    }
+}
